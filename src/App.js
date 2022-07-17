@@ -2,7 +2,7 @@ import './App.css';
 import Homepage from './pages/HomePage';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import AboutPage from './pages/AboutPage'
-import ArticlesPage from './pages/ArticlesPage'
+import ArticlePage from './pages/ArticlePage'
 import ArticlesListPage from './pages/ArticlesListPage'
 import NavBar from './NavBar';
 import NotFoundPage from './pages/NotFoundPage'
@@ -16,14 +16,12 @@ function App() {
       <Routes>
     <Route path='/' element={<Homepage />} />
     <Route path='about' element={<AboutPage />} />
-    <Route path='/article/:name' element={<ArticlesPage />} />
-    <Route path='/article-list' element={<ArticlesListPage />} />
+    <Route path='/articles' exact element={<ArticlesListPage />} />
+    <Route path='/article/:name' element={<ArticlePage />} />
     <Route component={NotFoundPage}/>
     </Routes>
       </div>
       </div>
-
-    
     </BrowserRouter>
   );
 }
