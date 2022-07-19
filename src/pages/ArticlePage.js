@@ -5,6 +5,8 @@ import ArticlesList from '../components/ArticlesList'
 import articleContent from './article-content'
 import NotFoundPage from "./NotFoundPage"
 import CommentsList from '../components/CommentsList';
+import UpvotesSection from '../components/UpvotesSection';
+import AddCommentForm from '../components/AddCommentForm';
 
 const ArticlePage = () => {
   const {name} = useParams()
@@ -22,19 +24,22 @@ const ArticlePage = () => {
     fetchData();
   }, [name]);
 
+  const currentArticle = articleContent.find(article => article.name === name);
   if (!article) return <NotFoundPage/>
 
-  const otherArticles = articleContent.filter(article => null)
+  
+  const otherArticles = articleContent.filter(article => article.name !== currentArticle.name);
 
 
   return (
     <>
     <h1>{article.title}</h1>
-    <p>This post has been upvoted {articleInfo.upvotes} times</p>
+    <UpvotesSection upvotes={articleInfo.upvotes} articleName={name} setArticleInfo={setArticleInfo} />
     {article.content.map((paragraph,key)=>(
       <p key={key}>{paragraph}</p>
     ))}
-    <CommentsList comments={articleInfo.comments} articleName={name} setArticleInfo={setArticleInfo} />
+    <CommentsList comments={articleInfo.comments}  />
+    <AddCommentForm comments={articleInfo.comments}  articleName={name} setArticleInfo={setArticleInfo}/>
     <h3>Other Articles:</h3>
     <ArticlesList articles={otherArticles}/>
     </>
